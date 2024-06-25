@@ -1,0 +1,42 @@
+import random
+import string
+
+def generate_password(length, complexity):
+    """
+    Function to generate a password based on specified length and complexity.
+    """
+    if complexity == 'low':
+        characters = string.ascii_letters + string.digits
+    elif complexity == 'medium':
+        characters = string.ascii_letters + string.digits + string.punctuation
+    elif complexity == 'high':
+        characters = string.ascii_letters + string.digits + string.punctuation + string.ascii_lowercase + string.ascii_uppercase
+    else:
+        raise ValueError("Complexity level should be 'low', 'medium', or 'high'.")
+
+    password = ''.join(random.choice(characters) for _ in range(length))
+    return password
+
+def main():
+    print("Welcome to the Password Generator App!\n")
+
+    while True:
+        try:
+            length = int(input("Enter the length of the password: "))
+            complexity = input("Enter the complexity level (low/medium/high): ").lower()
+
+            password = generate_password(length, complexity)
+
+            print(f"\nYour generated password is: {password}\n")    
+
+            another = input("Generate another password? (yes/no): ").lower()
+            if another != 'yes':
+                break
+        except ValueError as e:
+            print(f"Error: {e}")
+            print("Please enter valid input.\n")
+
+    print("Thank you for using the Password Generator App!")
+
+if __name__ == "__main__":
+    main()
